@@ -3,6 +3,7 @@
 const app = getApp<IAppOption>()
 
 Page({
+  count:0,
   data: {
     motto: 'Hello World typescript',
     userInfo: {},
@@ -11,9 +12,11 @@ Page({
   },
   // 事件处理函数
   bindViewTap() {
-    wx.navigateTo({
-      url: '../logs/logs',
-    })
+    // wx.navigateTo({
+    //   url: '../logs/logs',
+    // })
+    console.log("taped");
+    
   },
   onLoad() {
     if (app.globalData.userInfo) {
@@ -42,6 +45,7 @@ Page({
         },
       })
     }
+    this.updateMotto()
   },
   getUserInfo(e: any) {
     console.log(e)
@@ -51,4 +55,16 @@ Page({
       hasUserInfo: true,
     })
   },
+  updateMotto(){
+  this.count++
+    if(this.count<100){
+
+      this.setData({
+        motto:`count:${this.count}`
+      },()=>{
+        this.updateMotto()
+      })
+    }
+    
+  }
 })

@@ -3,75 +3,53 @@
 const app = getApp<IAppOption>()
 
 Page({
-  count: 0,
   data: {
-    motto: 'Hello World typescript',
+    motto: 'Hello World from typescript',
     userInfo: {},
     hasUserInfo: false,
-    canIUse: wx.canIUse('button.open-type.getUserInfo'),
   },
   // 事件处理函数
   bindViewTap() {
     wx.redirectTo({
       url: '../logs/logs',
     })
-    // console.log('taped')
   },
-  onLoad() {
-    app.globalData.userInfo.then((userInfo) => {
-      this.setData({
-        userInfo,
-        hasUserInfo: true,
-      })
+  async onLoad() {
+    const userInfo = await app.globalData.userInfo
+    this.setData({
+      userInfo,
+      hasUserInfo: true,
     })
-    // if (app.globalData.userInfo) {
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true,
-    //   })
-    // } else if (this.data.canIUse) {
-    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-    //   // 所以此处加入 callback 以防止这种情况
-    //   app.userInfoReadyCallback = res => {
-    //     this.setData({
-    //       userInfo: res.userInfo,
-    //       hasUserInfo: true,
-    //     })
-    //   }
-    // } else {
-    //   // 在没有 open-type=getUserInfo 版本的兼容处理
-    //   wx.getUserInfo({
-    //     success: res => {
-    //       app.globalData.userInfo = res.userInfo
-    //       this.setData({
-    //         userInfo: res.userInfo,
-    //         hasUserInfo: true,
-    //       })
-    //     },
-    //   })
-    // }
+
     // this.updateMotto()
   },
   getUserInfo(e: any) {
     console.log(e)
     const userInfo: WechatMiniprogram.UserInfo = e.detail.userInfo
     app.resolveUserInfo(userInfo)
-    // this.setData({
-    //   userInfo: e.detail.userInfo,
-    //   hasUserInfo: true,
-    // })
   },
   updateMotto() {
-    this.count++
-    if (this.count < 100) {
-      this.setData(
-        {
-          motto: `count:${this.count}`,
-        },
-        () => {
-          this.updateMotto()
-        }
-      )
+    // 在10秒之内持续更新Motto
+    let shouldStop = false
+    setTimeout(() => {
+      shouldStop = true
+    }, 10000)
+
+    let count = 0
+    const update = () => {
+      count++
+      if (!shouldStop) {
+        this.setData(
+          {
+            motto: `Update count: ${count}`,
+          },
+          () => {
+            update()
+          }
+        )
+      }
     }
+
+    update()
   },
 })

@@ -3,7 +3,7 @@
 const app = getApp<IAppOption>()
 
 Page({
-  count:0,
+  count: 0,
   data: {
     motto: 'Hello World typescript',
     userInfo: {},
@@ -12,14 +12,13 @@ Page({
   },
   // 事件处理函数
   bindViewTap() {
-    // wx.navigateTo({
-    //   url: '../logs/logs',
-    // })
-    console.log("taped");
-    
+    wx.redirectTo({
+      url: '../logs/logs',
+    })
+    // console.log('taped')
   },
   onLoad() {
-    app.globalData.userInfo.then(userInfo=>{
+    app.globalData.userInfo.then((userInfo) => {
       this.setData({
         userInfo,
         hasUserInfo: true,
@@ -51,26 +50,28 @@ Page({
     //     },
     //   })
     // }
-    this.updateMotto()
+    // this.updateMotto()
   },
   getUserInfo(e: any) {
     console.log(e)
-    app.globalData.userInfo = e.detail.userInfo
-    this.setData({
-      userInfo: e.detail.userInfo,
-      hasUserInfo: true,
-    })
+    const userInfo: WechatMiniprogram.UserInfo = e.detail.userInfo
+    app.resolveUserInfo(userInfo)
+    // this.setData({
+    //   userInfo: e.detail.userInfo,
+    //   hasUserInfo: true,
+    // })
   },
-  updateMotto(){
-  this.count++
-    if(this.count<100){
-
-      this.setData({
-        motto:`count:${this.count}`
-      },()=>{
-        this.updateMotto()
-      })
+  updateMotto() {
+    this.count++
+    if (this.count < 100) {
+      this.setData(
+        {
+          motto: `count:${this.count}`,
+        },
+        () => {
+          this.updateMotto()
+        }
+      )
     }
-    
-  }
+  },
 })

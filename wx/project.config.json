@@ -51,5 +51,37 @@
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"appid": "wx3a6b2d6cf0f3f48a",
-	"condition": {}
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"current": -1,
+			"list": []
+		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
+		"miniprogram": {
+			"current": -1,
+			"list": [
+				{
+					"id": -1,
+					"name": "pages/learnless/learnless",
+					"pathName": "pages/learnless/learnless",
+					"scene": null
+				}
+			]
+		}
+	}
 }

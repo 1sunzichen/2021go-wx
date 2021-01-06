@@ -1,0 +1,8 @@
+<!--miniprogram/pages/learnless.wxml-->
+<text wx:if="{{showPath}}">miniprogram/pages/learnless.wxml</text>
+<block wx:else>
+  <text>learn css</text>
+</block>
+<view wx:for="{{values}}" wx:for-item="val" wx:key="id">
+   value is {{val.name}}
+</view>
